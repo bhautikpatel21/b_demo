@@ -27,6 +27,10 @@ const userSchema = mongoose.Schema ({
         required : true
     },
 
+    profilImage : {
+        type : String
+    },
+    
     isDelete : {
         type : Boolean,
         default : false
