@@ -108,6 +108,10 @@ exports.deleteUser = async(req,res) => {
         if(!user){
             res.status(404).json({message : `user not found........`});
         }
+        
+        if(req.file){
+            req.body.profileImage = `${req.file.path}`;
+        }
 
         user = await userServices.updateUser({isDelete : false});
 

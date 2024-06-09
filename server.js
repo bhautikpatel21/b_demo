@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const express = require('express');
 const port = process.env.PORT;
 const app = express();
+const path = require('path');
+const imagePath = path.join(__dirname,'images');
+app.use('/images',express.static(imagePath));
 
 app.use(express.json());
 

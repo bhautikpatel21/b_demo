@@ -1,6 +1,7 @@
 const express = require('express');
 const userRoutes = express.Router();
 const { userVerifyToken } = require('../../helper/userverifyToken');
+const { upload } = require('../../helper/imageUploader');
 const {
 
     registerUser,
@@ -13,7 +14,7 @@ const {
 
 } = require('../../controller/User/user.controller');
 
-userRoutes.post('/register-user',registerUser);
+userRoutes.post('/register-user',upload.single('profileImage'),registerUser);
 
 userRoutes.post('/login-user',loginUser);
 
