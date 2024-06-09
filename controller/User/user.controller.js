@@ -11,12 +11,12 @@ exports.registerUser = async(req,res) => {
             res.status(400).json({message : `User already registered.........`});
         }
 
-        let hashPassword = await bcrypt.hash(req.body,password,10);
+        let hashPassword = await bcrypt.hash(req.body.password,10);
         console.log(hashPassword);
 
         user = await userServices.addNewUser({...req.body, password : hashPassword, isDelete : false});
 
-        res.status(201).json({message : `User register succesfully...........`})
+        res.status(201).json({user,message : `User register succesfully...........`})
 
     } catch (error) {
         console.log(error);
@@ -37,13 +37,13 @@ exports.loginUser = async(req,res) => {
             
             if(!checkPassword)
                 {
-                    res.status(401).json({message : `password isnot match.......`});
+                    res.status(401).json({message : `password is not match.......`});
                 }
 
                 let token = await jwt.sign({userId : user._id},'User');
                 console.log(token);
 
-                res.status(200).json({message : `User login successfully...........`});
+                res.status(200).json({user,message : `User login successfully...........`});
 
     } catch (error) {
         console.log(error);
@@ -85,7 +85,7 @@ exports.getAllUser = async(req,res) => {
 
 exports.updateUser = async(req,res) => {
     try {
-        let user = await userServices.updateUser(req.query.userId);
+        let user = await userServices.getUserById(req.query.userId);
 
         if(!user){
             res.status(404).json({message : `User does not found...........`});
@@ -111,7 +111,7 @@ exports.deleteUser = async(req,res) => {
 
         user = await userServices.updateUser({isDelete : false});
 
-        res.status(200).json({user, message : `User delete successfully...........`});
+        res.status(200).json({message : `User delete successfully...........`});
 
     } catch (error) {
         console.log(error);

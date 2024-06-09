@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const cartSchema = mongoose.Schema({
+const cartSchema = mongoose.Schema ({
 
     user : {
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'users'
+        ref : 'userModel'
     },
 
     cartItem : {
@@ -19,12 +19,12 @@ const cartSchema = mongoose.Schema({
 
     isDelete : {
         type : Boolean,
-        default : false
+        default : 1
     }
 },
 {
     versionKey : false,
-    timestamps : true
+    timeStamps : true
 });
 
-module.exports = mongoose,model('cart_items',cartSchema);
+module.exports = mongoose.model('cartItems',cartSchema);
