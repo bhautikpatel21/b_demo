@@ -11,7 +11,7 @@ exports.registerUser = async(req,res) => {
             res.status(400).json({message : `User already registered.........`});
         }
 
-        let hashPassword = await bcrypt.hash(req.body,password,10);
+        let hashPassword = await bcrypt.hash(req.body.password,10);
         console.log(hashPassword);
 
         user = await userServices.addNewUser({...req.body, password : hashPassword, isDelete : false});
