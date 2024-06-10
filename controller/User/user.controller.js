@@ -10,6 +10,10 @@ exports.registerUser = async(req,res) => {
         if(user){
             res.status(400).json({message : `User already registered.........`});
         }
+        
+        if(req.file){
+            req.body.profileImage = `${req.file.path}`;
+        }
 
         let hashPassword = await bcrypt.hash(req.body.password,10);
         console.log(hashPassword);
@@ -107,10 +111,6 @@ exports.deleteUser = async(req,res) => {
 
         if(!user){
             res.status(404).json({message : `user not found........`});
-        }
-        
-        if(req.file){
-            req.body.profileImage = `${req.file.path}`;
         }
 
         user = await userServices.updateUser({isDelete : false});
