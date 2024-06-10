@@ -19,12 +19,12 @@ const cartSchema = mongoose.Schema ({
 
     isDelete : {
         type : Boolean,
-        default : 1
+        default : false
     }
 },
 {
     versionKey : false,
-    timeStamps : true
+    timeStamp : true
 });
 
-module.exports = mongoose.model('cartItems',cartSchema);
+module.exports = mongoose.model('carts',cartSchema);

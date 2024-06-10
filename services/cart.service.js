@@ -1,30 +1,12 @@
-const cart= require('../model/cart.model');
+const cart = require('../model/cart.model');
 
 module.exports = class cartServices {
 
-    // Add To Cart 
+    // Add To Cart
 
     async addToCart(body) {
         try {
             return await cart.create(body);
-
-        } catch (error) {
-            console.log(error);
-            return error.message;
-        }
-    };
-
-    // Get All Carts
-
-    async getAllCarts(query) {
-        try {
-            let find = [
-                {$match : {isDelete : false}}
-            ];
-
-            let result = await cart.aggregate(find);
-            return result;
-
         } catch (error) {
             console.log(error);
             return error.message;
@@ -36,7 +18,6 @@ module.exports = class cartServices {
     async getCart(body) {
         try {
             return await cart.findOne(body).populate('cartItem');
-
         } catch (error) {
             console.log(error);
             return error.message;
@@ -47,22 +28,60 @@ module.exports = class cartServices {
 
     async getCartById(id) {
         try {
-            return await cart.findbyId(id).populate('cartItem');
+            return await cart.findById(id).populate('cartItem');
+        } catch (error) {
+            conosle.log(error);
+            return error.message;
+        }
+    };
+
+    // Get All Cart
+
+    async getAllCart(query) {
+        try {
+            let find = [
+                {$match : {isDelete : false}}
+            ];
+
+            let result = await cart.aggregare(find);
+            return result;
+
         } catch (error) {
             console.log(error);
             return error.message;
         }
     };
 
-    // update Cart
+    // Get All Carts 
 
-    async updateCart(id,body) {
+    async getAllCarts(body) {
         try {
-            return await cart.findByIdAndUpdate(id,{$set : body}, {new :true});
-            
+            return await cart.find(body).populate('cartItem');
         } catch (error) {
             console.log(error);
             return error.message;
         }
     }
+
+    // Update Cart 
+
+    async updateCart(id,body) {
+        try {
+            return await cart.findByIdAndUpdate(id, {$set : body}, {new : true});
+        } catch (error) {
+            console.log(error);
+            return error.message;
+        }
+    };
+
+    // update Many 
+
+    async updateMany(body) {
+        try {
+            return await cart.updateMany(body);
+        } catch (error) {
+            console.log(error);
+            return error.message;
+        }
+    };
 }
